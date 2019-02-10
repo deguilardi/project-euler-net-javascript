@@ -3,15 +3,63 @@
 <script src="_common.js" ></script>
 The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
 <br />Find the sum of all the primes below two million.
-
+<br />
 <script>
-initTime();
 var limit = 2000000;
-var sum = lastPrime;
+
+
+// natural looping
+initTime();
+var sum = 0;
 while( lastPrime < limit ){
-    sum += findNextPrimeNumber();
+    sum += lastPrime;
+    findNextPrimeNumber();
 }
-sum -= lastPrime;
-writeOutput( 0, sum, [["quadratic"]] );
+writeOutput( 1, sum, [["quadratic"]] );
+
+
+// the sieve of Eratosthenes
+initTime();
+var crossLimit = Math.sqrt( limit );
+var sieve = new Array( limit ).fill( false );
+for( var i = 4; i <= limit; i += 2 ){
+    sieve[ i ] = true;
+}
+for( var i = 3; i <= crossLimit; i += 2 ){
+    if( !sieve[ i ] ){
+        for( var ii = i * i; ii <= limit; ii += 2 * i ){
+            sieve[ ii ] = true;
+        }
+    }
+}
+var sum = 0;
+for( var i = 2; i <= limit; i++ ){
+    if( !sieve[ i ]){
+        sum += i;
+    }
+}
+writeOutput( 2, sum, [["linear"], ["linear"], ["n/2"]] );
+
+
+// optimized sieve of Eratosthenes
+initTime();
+var sieveBound = parseInt( ( limit - 1 ) / 2 ); 
+var sieve = new Array( sieveBound ).fill( false );
+var crossLimit = parseInt( ( Math.sqrt( limit ) - 1 ) / 2 );
+for( var i = 1; i <= crossLimit; i++ ){
+    if( !sieve[ i ] ){
+        for( var ii = 2 * i * ( i + 1 ); ii <= sieveBound; ii += 2 * i + 1 ){
+            sieve[ ii ] = true;
+        }
+    }
+}
+var sum = 2;
+for( var i = 1; i <= sieveBound; i++ ){
+    if( !sieve[ i ]){
+        sum += 2 * i + 1;
+    }
+}
+writeOutput( 3, sum, [["n/2"], ["n/2"], ["n/4"]] );
+
 </script>
 </html>

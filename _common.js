@@ -19,7 +19,12 @@ function runtimeComplexityCalculator( operations = array() ){
         var index = runtimeOptions.findIndex( function( element ){
             return element == option;
         } );
-        return runtimeValues[ index ];
+        if( index >= 0){
+            return runtimeValues[ index ];
+        }
+        else{
+            return option;
+        }
     }
 
     var output = "O(";
