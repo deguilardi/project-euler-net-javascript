@@ -1,0 +1,31 @@
+<html>
+<meta charset="UTF-8">
+<script src="_common.js" ></script>
+<script>
+initTime();
+
+var input = 1000000;
+var primesCount = 0;
+var primes = [];
+var longestSequence = 0;
+var record;
+loop1:
+while( true ){
+    primesCount++;
+    primes.push( lastPrime );
+    var sum = 0;
+    for( var i = 0; i < primesCount; i++ ){
+        sum += primes[ primesCount - i - 1 ];
+        if( sum > input ){
+            break loop1;
+        }
+        if( i > longestSequence && isPrime( sum ) ){
+            longestSequence = i + 1;
+            record = sum;
+        }
+    }
+    findNextPrimeNumber();
+}
+writeOutput( 0, longestSequence, [["linear", "logarithmic"]] );
+</script>
+</html>

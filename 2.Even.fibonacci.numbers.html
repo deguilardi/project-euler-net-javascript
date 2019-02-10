@@ -1,0 +1,17 @@
+<html>
+<meta charset="UTF-8">
+<script src="_common.js" ></script>
+<script>
+initTime();
+var last = 1;
+var curr = 2;
+var sum = 0;
+while( curr < 4000000 ){
+    sum += ( curr % 2 == 0 ) ? curr : 0;
+    var temp = curr;
+    curr += last;
+    last = temp;
+}
+writeOutput( 0, sum, [["linear"]] );
+</script>
+</html>

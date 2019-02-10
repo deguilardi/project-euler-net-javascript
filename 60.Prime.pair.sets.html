@@ -1,0 +1,71 @@
+<html>
+<meta charset="UTF-8">
+<script src="_common.js" ></script>
+<script>
+initTime();
+
+function concat(a, b){
+    return a * Math.pow(10, Math.floor(Math.log10(b)) + 1) + b;
+}
+
+function isPrimeConcat(a, b){
+    return isPrime( concat(a, b) ) && isPrime( concat( b, a ) );
+}
+
+function addEmptyPair(first, base){
+    const sum = base.sum + first
+    const val = {
+        first: first,
+        sum: sum,
+        matches: [],
+    };
+    base.matches.push( val );
+    return sum;
+}
+
+function addMatches(first, base, matches = [], order){
+    if( found || order <= 0 ){ return; }
+    for( var i = 0; i < matches.length; i++ ){
+        var match = matches[ i ];
+        var targetIndex = base.matches.findIndex( x => x.first == match );
+        if( targetIndex > -1 ){
+            // add two ways
+            var output = addEmptyPair( first, base.matches[ targetIndex ] );
+            addEmptyPair( base.matches[ targetIndex ].first, base.matches[ base.matches.length - 1 ] );
+            if( order == 1 ){
+                writeOutput( 0, output, [["logarithmic", "quadratic"]] );
+                found = true;
+            }
+            // recursive call
+            addMatches( first, base.matches[ targetIndex ], matches, order - 1 );
+        }
+    }
+}
+
+const orderLimit = 5;
+var primes = [];
+var base = { first:0, sum: 0, matches : [] };
+var found = false;
+while( !found ){
+    if( lastPrime == 2 || lastPrime == 5 ){
+        findNextPrimeNumber();
+        continue;
+    }
+    primes.push( lastPrime );
+    addEmptyPair( lastPrime, base );
+
+    var matches = [];
+    for( var ii = 0; ii < primes.length; ii++ ){
+        var val = primes[ ii ];
+        if( isPrimeConcat( lastPrime, val ) ){
+            matches.push( val );
+        }
+    }
+    if( matches.length > 0 ){
+        addMatches( lastPrime, base, matches, orderLimit - 1 );
+    }
+
+    findNextPrimeNumber();
+}
+</script>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<meta charset="UTF-8">
+<script src="_common.js" ></script>
+<script>
+
+// Solution 1
+initTime();
+
+var input = 10001;
+for( var i = 1; i < input; i++ ){
+    findNextPrimeNumber();
+}
+writeOutput( 2, lastPrime, [["linear"], ["logarithmic"]] );
+
+
+// Solution 2
+initTime();
+var input = 10001;
+var count = 0;
+var i = 0;
+while( count <= input ){
+    if( isPrime( i ) ){
+        count++
+    }
+    i++;
+}
+writeOutput( 2, i-1, [["linear"], ["logarithmic"]] );
+</script>
+</html>

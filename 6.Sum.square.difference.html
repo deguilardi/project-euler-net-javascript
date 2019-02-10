@@ -1,0 +1,31 @@
+<html>
+<meta charset="UTF-8">
+<script src="_common.js" ></script>
+<script>
+
+// Solution 1
+// Linear thinking
+initTime();
+var input = 100;
+var sumSqrt = 0;
+var sum = 0;
+for( var i = 1; i <= input; i++ ){
+    sumSqrt += i*i;
+    sum += i;
+}
+var sqrtSum = Math.pow( sum, 2 );
+var output = sqrtSum - sumSqrt;
+writeOutput( 1, output, [["linear"]] );
+
+
+// Solution 2
+// Knowing math concepts
+initTime();
+var input = 100;
+var sum = input * ( input + 1 ) / 2;
+var sumSqrt = ( 2 * input + 1 ) * ( input + 1 ) * input / 6;
+var sqrtSum = sum * sum;
+var output = sqrtSum - sumSqrt;
+writeOutput( 2, output, [["constant"]] );
+</script>
+</html>

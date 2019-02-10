@@ -1,0 +1,27 @@
+<html>
+<meta charset="UTF-8">
+<script src="_common.js" ></script>
+<script>
+initTime();
+
+// var primeFactors = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+// var primeFactors = [2,3,2,5,  7,2,3,   11,   13,      2, 17,   19   ];
+
+var input = 20;
+var primeFactors = []
+while( lastPrime <= input ){
+    primeFactors.push( lastPrime );
+    findNextPrimeNumber();
+}
+var output = 1;
+for( var i = 0; i < primeFactors.length; i ++ ){
+    var factor = primeFactors[ i ];
+    while( factor * factor < input ){
+        factor *= factor;
+    }
+    output *= factor;
+}
+
+writeOutput( 0, output, [["quadratic"], ["linear", "logarithmic"]] );
+</script>
+</html>

@@ -1,0 +1,17 @@
+<html>
+<meta charset="UTF-8">
+<script src="_common.js" ></script>
+<script>
+initTime();
+var input = 600851475143;
+while (input > 1) {
+    if (input % lastPrime === 0) {
+        input /= lastPrime;
+    }
+    else {
+        lastPrime = findNextPrimeNumber();
+    }
+}
+writeOutput( 0, lastPrime, [["logarithmic", "linear"]] );
+</script>
+</html>

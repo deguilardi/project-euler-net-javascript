@@ -1,0 +1,56 @@
+<html>
+<meta charset="UTF-8">
+<script src="_common.js" ></script>
+<script>
+initTime();
+
+function getDigitCount( input ) {
+    return Math.max( Math.floor( Math.log10( Math.abs( input ) ) ), 0) + 1;
+}
+
+function checkPalindromicity( input ){
+    var digitCount = getDigitCount( input );
+
+    for( var i = 1; i <= digitCount / 2; i++ ){
+        var m1 = 0.01 * ( Math.pow( 10, i ) );
+        var n1 = Math.floor( input / ( 10 * m1 ) ) % 10;
+
+        var m2 = 0.1 * ( Math.pow( 10, digitCount - i ) );
+        var n2 = Math.floor( input / ( 10 * m2 ) ) % 10;
+
+        if( n1 != n2 ) return false;
+
+    }
+    return true;
+}
+
+var numDigits = 3;
+var lowerNumLimit = Math.pow( 10, numDigits - 1 );
+var n1 = Math.pow( 10, numDigits ) - 1;
+var n2 = n1;
+var product = n1 * n2;
+var largest = 0;
+var i = 0;
+while( product > Math.pow( 10, numDigits + 1 ) ){
+    if( checkPalindromicity( product ) ){
+        if( product > largest ){
+            largest = product;
+        }
+    }
+    if( n1 > lowerNumLimit ){
+        n1--;
+    }
+    else if( n2 > lowerNumLimit ){
+        i++;
+        n1 = Math.pow( 10, numDigits ) - i;
+        n2--;
+    }
+    else{
+        break;
+    }
+    product = n1 * n2;
+}
+
+writeOutput( 0, largest, [["logarithmic", "linear"]] );
+</script>
+</html>
