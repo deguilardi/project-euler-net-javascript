@@ -1,0 +1,17 @@
+<html>
+<meta charset="UTF-8">
+<script src="_common.js" ></script>
+The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+<br />Find the sum of all the primes below two million.
+
+<script>
+initTime();
+var limit = 2000000;
+var sum = lastPrime;
+while( lastPrime < limit ){
+    sum += findNextPrimeNumber();
+}
+sum -= lastPrime;
+writeOutput( 0, sum, [["quadratic"]] );
+</script>
+</html>
